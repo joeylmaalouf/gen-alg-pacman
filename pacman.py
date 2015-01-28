@@ -1,41 +1,31 @@
 from subprocess import call
 import sys
-import time
+from time import sleep
 
 
 class Data(object):
 	def __init__(self, p, w, d, b):
-		self.collected = 0
-		self.total = 0
 		self.dead = False
-		self.px = 1 # If you change these, make sure to also change
-		self.py = 1 # his starting position on the board below!
 		self.player = p
 		self.wall = w
 		self.dot = d
 		self.blank = b
-		self.board = [
-		[w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w],
-		[w, p, d, d, d, d, d, d, d, d, d, d, w, w, w, w, d, d, d, d, d, d, d, d, d, d, d, w],
-		[w, d, w, w, w, w, d, w, w, w, w, d, d, w, w, d, d, w, w, w, w, d, w, w, w, w, d, w],
-		[w, d, w, w, w, w, d, w, w, w, w, w, d, w, w, d, w, w, w, w, w, d, w, w, w, w, d, w],
-		[w, d, w, w, w, w, d, w, w, w, w, w, d, w, w, d, w, w, w, w, w, d, w, w, w, w, d, w],
-		[w, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, w],
-		[w, d, w, w, w, w, d, w, w, d, w, w, w, w, w, w, w, w, d, w, w, d, w, w, w, w, d, w],
-		[w, d, w, w, w, w, d, w, w, d, w, w, w, w, w, w, w, w, d, w, w, d, w, w, w, w, d, w],
-		[w, d, d, d, d, d, d, w, w, d, d, d, d, w, w, d, d, d, d, w, w, d, d, d, d, d, d, w],
-		[w, w, w, w, w, w, d, w, w, w, w, w, d, w, w, d, w, w, w, w, w, d, w, w, w, w, w, w],
-		[w, w, w, w, w, w, d, w, w, w, w, w, d, d, d, d, w, w, w, w, w, d, w, w, w, w, w, w],
-		[w, w, w, w, w, w, d, w, w, w, w, w, d, w, w, d, w, w, w, w, w, d, w, w, w, w, w, w],
-		[w, w, w, w, w, w, d, d, d, d, d, d, d, w, w, d, d, d, d, d, d, d, w, w, w, w, w, w],
-		[w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w]
-		]
+		# open the file as a string, split block into rows by newline,
+		# split rows into chars via list(), use [:-1] to ignore the newline at the end of the file
+		self.board = [list(r) for r in open("level.txt").read().split("\n")[:-1]]
+		self.px = 0
+		self.py = 0
+		for r in range(len(self.board)):
+			for c in range(len(self.board[r])):
+				if self.board[r][c] == self.player:
+					self.px = c
+					self.py = r
+		self.collected = 0
+		self.total = 0
 		for r in self.board:
 			for c in r:
 				if c == self.dot:
 					self.total += 1
-		# 127 dots
-		# try individuals with 150-200 inputs?
 
 
 def update(data, move):
@@ -73,12 +63,12 @@ def main(argv):
 	data = Data("@", "#", ".", " ")
 	for i in inputs:
 		update(data, i)
-		# time.sleep(0.1)
+		# sleep(0.1)
 		# display(data)
 		check(data)
-	# print(data.collected)
-	return data.collected
+	return [data.collected, data.total]
 
 
 if __name__ == "__main__":
 	main(sys.argv)
+# TODO: ADD GHOSTS - NO RANDOMNESS
