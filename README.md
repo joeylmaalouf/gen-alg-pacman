@@ -1,2 +1,4 @@
-# pacman-gen-alg
+pacman-gen-alg
+==============
+
 Genetic algorithm Pacman solver.
