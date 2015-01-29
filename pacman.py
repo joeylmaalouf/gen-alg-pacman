@@ -51,10 +51,10 @@ def display(data):
 
 def check(data):
 	if data.dead:
-		print("You lose!")
+		# print("You lose!")
 		sys.exit()
 	if data.collected == data.total:
-		print("You win!")
+		# print("You win!")
 		sys.exit()
 
 
