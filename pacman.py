@@ -43,18 +43,18 @@ def update(data, move):
 	data.board[data.py][data.px] = data.player
 
 
-def display(data):
+def display(board):
 	call("clear")
-	for r in data.board:
+	for r in board:
 		print("".join(r))
 
 
 def check(data):
 	if data.dead:
-		# print("You lose!")
+		print("You lose!")
 		sys.exit()
 	if data.collected == data.total:
-		# print("You win!")
+		print("You win!")
 		sys.exit()
 
 
@@ -64,9 +64,9 @@ def main(argv):
 	for i in inputs:
 		update(data, i)
 		# sleep(0.1)
-		# display(data)
-		check(data)
-	return [data.collected, data.total]
+		# display(data.board)
+		# check(data)
+	return data
 
 
 if __name__ == "__main__":

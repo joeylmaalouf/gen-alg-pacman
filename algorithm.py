@@ -20,12 +20,16 @@ class Inidividual(object):
 			self.mutate()
 
 	def payoff(self):
-		self.fitness = pacman.main(self.moves)[0]
+		self.fitness = pacman.main(self.moves).collected
 
 
 def main(argv):
-	maxfit = pacman.main("l")[1]
+	sampledata = pacman.main("l")
+	maxfit = sampledata.total
+	for r in sampledata.board:
+		print("".join(r))
 	popsize = 1000
+	print("Generating a population of {0} individuals for a pathway containing {1} points.".format(popsize, maxfit))
 	time_start = time.clock()
 	population = [Inidividual() for i in range(popsize)]
 	generation = 0
@@ -35,9 +39,13 @@ def main(argv):
 		population.sort(key = lambda x: x.fitness, reverse = True)
 		print("Generation {0:04d}, best solution: {1:03d}/{2:03d} points. Time taken: {3:09.4f} seconds."\
 			.format(generation, population[0].fitness, maxfit, time.clock()-time_start))
+
 		if (population[0].fitness >= maxfit):
-			print("Moves:\n{0}".format(population[0].moves))
+			print("Moves:\n{0}".format("".join(population[0].moves)))
+			with open("solution.txt", "w") as outfile:
+				outfile.write("".join(population[0].moves)+"\n")
 			return population[0].moves
+
 		for individual in population[popsize//4:popsize//2]:
 			individual.mutate()
 		for individual in population[popsize//2:]:
