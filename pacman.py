@@ -4,7 +4,7 @@ from time import sleep
 
 
 class Data(object):
-	def __init__(self, p, w, d, b):
+	def __init__(self, path, p, w, d, b):
 		self.dead = False
 		self.player = p
 		self.wall = w
@@ -12,7 +12,7 @@ class Data(object):
 		self.blank = b
 		# open the file as a string, split block into rows by newline,
 		# split rows into chars via list(), use [:-1] to ignore the newline at the end of the file
-		self.board = [list(r) for r in open("level.txt").read().split("\n")[:-1]]
+		self.board = [list(r) for r in open(path).read().split("\n")[:-1]]
 		self.px = 0
 		self.py = 0
 		for r in range(len(self.board)):
@@ -60,7 +60,7 @@ def check(data):
 
 def main(argv):
 	inputs = argv if argv[0] in ["l", "r", "u", "d"] else argv[1:]
-	data = Data("@", "#", ".", " ")
+	data = Data("level2.txt", "@", "#", ".", " ")
 	for i in inputs:
 		update(data, i)
 		# sleep(0.1)
