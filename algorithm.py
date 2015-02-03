@@ -10,7 +10,7 @@ class Inidividual(object):
 		self.numchros = 200
 		self.dirs = ["l", "r", "u", "d"]
 		self.moves = [self.dirs[random.randint(0, 3)] for i in range(self.numchros)]
-		self.fitness = float("inf")
+		self.fitness = 0
 
 	def mutate(self):
 		self.moves[random.randint(0, self.numchros-1)] = self.dirs[random.randint(0, 3)]
@@ -28,8 +28,8 @@ def main(argv):
 	maxfit = sampledata.total
 	for r in sampledata.board:
 		print("".join(r))
-	popsize = 1000
-	print("Generating a population of {0} individuals for a pathway containing {1} points.".format(popsize, maxfit))
+	popsize = 10000
+	print("Generating a population of {0} individuals for a level containing {1} points.".format(popsize, maxfit))
 	time_start = time.clock()
 	population = [Inidividual() for i in range(popsize)]
 	generation = 0
