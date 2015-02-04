@@ -26,9 +26,7 @@ class Inidividual(object):
 def main(argv):
 	sampledata = pacman.main("l")
 	maxfit = sampledata.total
-	for r in sampledata.board:
-		print("".join(r))
-	popsize = 10000
+	popsize = 5000
 	print("Generating a population of {0} individuals for a level containing {1} points.".format(popsize, maxfit))
 	time_start = time.clock()
 	population = [Inidividual() for i in range(popsize)]
@@ -41,9 +39,9 @@ def main(argv):
 			.format(generation, population[0].fitness, maxfit, time.clock()-time_start))
 
 		if (population[0].fitness >= maxfit):
-			print("Moves:\n{0}".format("".join(population[0].moves)))
+			print("Moves:\n{0}".format(" ".join(population[0].moves)))
 			with open("solution.txt", "w") as outfile:
-				outfile.write("".join(population[0].moves)+"\n")
+				outfile.write(" ".join(population[0].moves)+"\n")
 			return population[0].moves
 
 		for individual in population[popsize//4:popsize//2]:
