@@ -1,3 +1,4 @@
+import random
 from subprocess import call
 import sys
 from time import sleep
@@ -53,18 +54,15 @@ def update_player(data, move):
 
 def update_ghost(data):
 	data.board[data.gy][data.gx] = data.ghost_over
-	dx = data.px - data.gx
-	dy = data.py - data.gy
-	if abs(dx) > abs(dy):
-		if dx < 0 and data.gx > 0 and data.board[data.gy][data.gx-1] is not data.wall:
-			data.gx -= 1
-		elif dx > 0 and data.gx < len(data.board[0])-1 and data.board[data.gy][data.gx+1] is not data.wall:
-			data.gx += 1
-	else:
-		if dy < 0 and data.gy > 0 and data.board[data.gy-1][data.gx] is not data.wall:
-			data.gy -= 1
-		elif dy > 0 and data.gy < len(data.board)-1 and data.board[data.gy+1][data.gx] is not data.wall:
-			data.gy += 1
+	move = ["l", "r", "u", "d"][random.randint(0, 3)]
+	if move is "l" and data.gx > 0 and data.board[data.gy][data.gx-1] is not data.wall:
+		data.gx -= 1
+	elif move is "r" and data.gx < len(data.board[0])-1 and data.board[data.gy][data.gx+1] is not data.wall:
+		data.gx += 1
+	elif move is "u" and data.gy > 0 and data.board[data.gy-1][data.gx] is not data.wall:
+		data.gy -= 1
+	elif move is "d" and data.gy < len(data.board)-1 and data.board[data.gy+1][data.gx] is not data.wall:
+		data.gy += 1
 	data.ghost_over = data.board[data.gy][data.gx]
 	data.board[data.gy][data.gx] = data.ghost
 
@@ -76,6 +74,7 @@ def display(board):
 
 
 def main(argv):
+	random.seed(0) # for consistent yet random ghost movement
 	inputs = argv if argv[0] in ["l", "r", "u", "d"] else argv[1:]
 	data = Data("level1.txt", "@", "0", "#", ".", " ")
 	for i in inputs:

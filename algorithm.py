@@ -5,7 +5,7 @@ import time
 import pacman
 
 
-class Inidividual(object):
+class Individual(object):
 	def __init__(self):
 		self.numchros = 200
 		self.dirs = ["l", "r", "u", "d"]
@@ -29,7 +29,7 @@ def main(argv):
 	popsize = 5000
 	print("Generating a population of {0} individuals for a level containing {1} points.".format(popsize, maxfit))
 	time_start = time.clock()
-	population = [Inidividual() for i in range(popsize)]
+	population = [Individual() for i in range(popsize)]
 	generation = 0
 	while(True):
 		for individual in population:
