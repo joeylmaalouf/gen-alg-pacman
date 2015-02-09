@@ -26,7 +26,7 @@ class Individual(object):
 def main(argv):
 	sampledata = pacman.main("l")
 	maxfit = sampledata.total
-	popsize = 5000
+	popsize = 10000
 	print("Generating a population of {0} individuals for a level containing {1} points.".format(popsize, maxfit))
 	time_start = time.clock()
 	population = [Individual() for i in range(popsize)]

@@ -76,7 +76,7 @@ def display(board):
 def main(argv):
 	random.seed(0) # for consistent yet random ghost movement
 	inputs = argv if argv[0] in ["l", "r", "u", "d"] else argv[1:]
-	data = Data("level1.txt", "@", "0", "#", ".", " ")
+	data = Data("level2.txt", "@", "0", "#", ".", " ")
 	for i in inputs:
 		update_player(data, i)
 		update_ghost(data)
