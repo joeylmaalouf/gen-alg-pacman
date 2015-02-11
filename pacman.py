@@ -54,7 +54,14 @@ def update_player(data, move):
 
 def update_ghost(data):
 	data.board[data.gy][data.gx] = data.ghost_over
-	move = ["l", "r", "u", "d"][random.randint(0, 3)]
+	if data.gx > data.px:
+		move = "l"
+	elif data.gx < data.px:
+		move = "r"
+	elif data.gy < data.py:
+		move = "d"
+	else:
+		move = "u"
 	if move is "l" and data.gx > 0 and data.board[data.gy][data.gx-1] is not data.wall:
 		data.gx -= 1
 	elif move is "r" and data.gx < len(data.board[0])-1 and data.board[data.gy][data.gx+1] is not data.wall:
@@ -76,7 +83,7 @@ def display(board):
 def main(argv):
 	random.seed(0) # for consistent yet random ghost movement
 	inputs = argv if argv[0] in ["l", "r", "u", "d"] else argv[1:]
-	data = Data("level2.txt", "@", "0", "#", ".", " ")
+	data = Data("level1.txt", "@", "0", "#", ".", " ")
 	for i in inputs:
 		update_player(data, i)
 		update_ghost(data)
